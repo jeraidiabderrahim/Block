@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -15,26 +16,26 @@ class CommentController extends Controller
     public function index()
     {
         $Comment = Comment::all();
-        return response()->json($Comment,200);
+        return new CommentResource($Comment);
     }
 
     public function store(StoreCommentRequest $request)
     {
         $comment=Comment::create($request->validated());
-        return response()->json($comment, 201);
+        return new CommentResource($comment);
     }
     public function show($comment)
     {
-        return response()->json($comment,200);
+        return new CommentResource(Comment::find($comment));
     }
     public function update(UpdateCommentRequest $request,Comment $comment)
     {
         $comment->update($request->only('body','user_id','post_id'));
-        return response()->json($comment, 200);
+        return new CommentResource($comment);
     }
     public function destroy(Comment $comment)
     {
         $comment->delete();
-        return response()->json(null, 204);
+        return response()->json('comment deleted', 204);
     }
 }

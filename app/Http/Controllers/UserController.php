@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,4 +39,9 @@ class UserController extends Controller
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'logout successfully']);
     }
+    public function GetUser(){
+        $user_id=Auth::user()->id;
+        $user=User::find($user_id);
+        return new UserResource($user);
     }
+}
