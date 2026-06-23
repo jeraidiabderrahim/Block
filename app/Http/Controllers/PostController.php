@@ -14,8 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::all();
-        return new PostResource($post);
+        $posts = Post::all();
+        return PostResource::collection($posts);
     }
 
     public function store(StorePostRequest $request)
@@ -26,7 +26,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return new PostResource(Post::find($post));
+        return new PostResource($post);
     }
 
     public function update(UpdatePostRequest $request,Post $post)

@@ -17,31 +17,54 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
-        $user=User::create([
+
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return response()->json(['message' => 'User created successfully', 'user' => $user],201);
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'message' => 'User created successfully',
+            'user' => $user,
+            'token' => $token
+        ], 201);
     }
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-        if(!Auth::attempt($request->only('email', 'password')))
-        return response()->json(['message' => 'invalid email or password'], 401);
-        $user = User::where('email', $request->email)->FirstOrFail();
+
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json([
+                'message' => 'Invalid email or password'
+            ], 401);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
         $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json(['message' => 'login successfully', 'user' => $user, 'token' => $token],201);
+
+        return response()->json([
+            'message' => 'Login successfully',
+            'user' => $user,
+            'token' => $token
+        ]);
     }
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'logout successfully']);
+
+        return response()->json([
+            'message' => 'Logout successfully'
+        ]);
     }
-    public function GetUser(){
-        $user_id=Auth::user()->id;
-        $user=User::find($user_id);
-        return new UserResource($user);
+    public function getUser(Request $request)
+    {
+        return new UserResource($request->user());
     }
 }
