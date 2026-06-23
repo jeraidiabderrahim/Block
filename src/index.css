@@ -1,0 +1,112 @@
+@import "tailwindcss";
+:root {
+  --text: #4b5563;
+  --text-h: #111827;
+  --bg: #f9fafb;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+  --radius: 8px;
+
+  --font: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* App container */
+#root {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* HEADINGS */
+/* h1, h2, h3 {
+  color: var(--text-h);
+  margin-bottom: 10px;
+} */
+
+/* LINKS */
+/* a {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+a:hover {
+  color: var(--primary-hover);
+} */
+
+/* INPUTS */
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: var(--primary);
+}
+
+/* BUTTONS */
+button {
+  padding: 10px 15px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: var(--primary-hover);
+}
+
+/* CARDS (Home posts) */
+.card {
+  background: var(--card);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* NAVBAR */
+/* nav {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+} */
+
+/* ERROR / SUCCESS */
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+}
+
+/* LOADING */
+.loading {
+  text-align: center;
+  font-size: 18px;
+}
